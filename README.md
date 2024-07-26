@@ -5,3 +5,5 @@
 - fetched the data from URL
 - designed mongoDB schema-accodring to the source data
 - intialize the database
+- created get route to list products-search-title,desc & price
+- added pagination
