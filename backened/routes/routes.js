@@ -77,11 +77,12 @@ router.get('/products/month/:month', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 })
-// Search and paginate product transactions
+// Search and paginate product transactions, with optional month filter
 router.get('/transactions', async (req, res) => {
     const search = req.query.search || '';
     const page = parseInt(req.query.page) || 1;
     const perPage = parseInt(req.query.perPage) || 10;
+    const month = req.query.month;
   
     const query = {};
   
@@ -96,6 +97,30 @@ router.get('/transactions', async (req, res) => {
       if (!isNaN(searchNumber)) {
         query.$or.push({ price: searchNumber });
       }
+    }
+  
+    if (month) {
+      const monthMapping = {
+        'January': 1,
+        'February': 2,
+        'March': 3,
+        'April': 4,
+        'May': 5,
+        'June': 6,
+        'July': 7,
+        'August': 8,
+        'September': 9,
+        'October': 10,
+        'November': 11,
+        'December': 12
+      };
+  
+      const monthNumber = monthMapping[month];
+      if (!monthNumber) {
+        return res.status(400).json({ message: "Invalid month provided!" });
+      }
+  
+      query.$expr = { $eq: [{ $month: "$dateOfSale" }, monthNumber] };
     }
   
     try {
@@ -115,5 +140,5 @@ router.get('/transactions', async (req, res) => {
       res.status(500).json({ message: error.message });
     }
   });
-
+  
 module.exports = router;
