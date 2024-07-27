@@ -11,3 +11,5 @@
 - created barchart,piechart and combined-data api
 
 ## Frontened Task
+- created react using vite with tailwind css
+- created Transaction DashBoard using flex tailwind
