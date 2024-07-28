@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, Colors } from 'chart.js';
 import axios from 'axios';
 
 // Register components
@@ -90,7 +90,8 @@ const Chart = ({ selectedMonth }) => {
                 text: `Bar Chart Stats - ${selectedMonth}`,
                 font: {
                     size: 24
-                }
+                },
+                color: 'black'
             },
         },
     };
