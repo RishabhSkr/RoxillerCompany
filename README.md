@@ -16,3 +16,4 @@
 - created Filter search and dropdown list
 - implemented Transctions Statistics
 - implemented Transaction Bar Chart using Chart.js 
+- fix bugs- pagingation

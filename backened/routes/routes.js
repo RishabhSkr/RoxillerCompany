@@ -85,7 +85,7 @@ router.get('/products/month/:month', async (req, res) => {
 router.get('/transactions', async (req, res) => {
     const search = req.query.search || '';
     const page = parseInt(req.query.page, 10) || 1;
-    const perPage = parseInt(req.query.perPage, 10) || 10;
+    const perPage = parseInt(req.query.perPage, 3) || 3;
     const month = req.query.month;
 
     console.log(`Fetching page ${page} with ${perPage} items per page.`);
