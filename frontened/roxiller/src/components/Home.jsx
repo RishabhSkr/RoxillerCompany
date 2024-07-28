@@ -142,8 +142,8 @@ function Table({ transactions, currentPage, totalPages, handleNextPage, handlePr
 
   return (
     <div className="mt-8 w-full md:w-3/4 lg:w-1/2 mx-auto p-4">
-      <div className="overflow-auto" style={{ maxHeight: '400px' }}>
-        <table className="w-full rounded-3xl bg-[rgb(248,223,140)] text-left text-gray-500 text-sm border-black">
+      <div >
+        <table className="w-full sm:w- rounded-3xl bg-[rgb(248,223,140)] text-left text-gray-500 text-sm border-black">
           <thead className="border-b-2 border-black">
             <tr>
               <th scope="col" className="px-6 py-3 border-r-2 border-black">ID</th>
@@ -197,25 +197,25 @@ function Table({ transactions, currentPage, totalPages, handleNextPage, handlePr
             ))}
           </tbody>
         </table>
-      </div>
-      <div className="flex justify-between mt-4">
-        <button
-          onClick={handlePreviousPage}
-          disabled={currentPage === 1}
-          className="px-4 py-2 bg-transparent text-black"
-        >
-          Previous
-        </button>
-        <div className="text-center mt-2">
-          Page {currentPage} of {totalPages}
+        <div className="flex justify-between mt-4">
+          <button
+            onClick={handlePreviousPage}
+            disabled={currentPage === 1}
+            className="px-4 py-2 bg-transparent text-black"
+          >
+            Previous
+          </button>
+          <div className="text-center mt-2">
+            Page {currentPage} of {totalPages}
+          </div>
+          <button
+            onClick={handleNextPage}
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 bg-transparent text-black"
+          >
+            Next
+          </button>
         </div>
-        <button
-          onClick={handleNextPage}
-          disabled={currentPage === totalPages}
-          className="px-4 py-2 bg-transparent text-black"
-        >
-          Next
-        </button>
       </div>
     </div>
   );
