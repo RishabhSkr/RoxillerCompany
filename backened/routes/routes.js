@@ -84,10 +84,12 @@ router.get('/products/month/:month', async (req, res) => {
 // Search and paginate product transactions, with optional month filter
 router.get('/transactions', async (req, res) => {
     const search = req.query.search || '';
-    const page = parseInt(req.query.page) || 1;
-    const perPage = parseInt(req.query.perPage) || 10;
+    const page = parseInt(req.query.page, 10) || 1;
+    const perPage = parseInt(req.query.perPage, 10) || 10;
     const month = req.query.month;
 
+    console.log(`Fetching page ${page} with ${perPage} items per page.`);
+    
     const query = {};
 
     if (search) {
@@ -104,17 +106,18 @@ router.get('/transactions', async (req, res) => {
     }
 
     if (month) {
-
         const monthNumber = monthMapping[month];
         if (!monthNumber) {
             return res.status(400).json({ message: "Invalid month provided!" });
         }
-
         query.$expr = { $eq: [{ $month: "$dateOfSale" }, monthNumber] };
     }
 
     try {
         const totalRecords = await Product.countDocuments(query);
+        const totalPages = Math.ceil(totalRecords / perPage);
+        console.log(`Total records: ${totalRecords}, Total pages: ${totalPages}`);
+        
         const products = await Product.find(query)
             .skip((page - 1) * perPage)
             .limit(perPage);
@@ -123,13 +126,15 @@ router.get('/transactions', async (req, res) => {
             page,
             perPage,
             totalRecords,
-            totalPages: Math.ceil(totalRecords / perPage),
+            totalPages,
             products
         });
     } catch (error) {
+        console.error('Error fetching transactions:', error);
         res.status(500).json({ message: error.message });
     }
 });
+
 // Get statistics for a selected month
 router.get('/transactions/statistics', async (req, res) => {
     const month = req.query.month;

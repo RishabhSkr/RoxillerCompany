@@ -13,3 +13,6 @@
 ## Frontened Task
 - created react using vite with tailwind css
 - created Transaction DashBoard using flex tailwind
+- created Filter search and dropdown list
+- implemented Transctions Statistics
+- implemented Transaction Bar Chart using Chart.js 
